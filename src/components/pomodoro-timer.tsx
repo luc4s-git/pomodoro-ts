@@ -1,8 +1,14 @@
+import start from '../assets/sounds/start.mp3';
+import stop from '../assets/sounds/weeb-finish.mp3';
+
 import Button from './button';
 import Timer from './timer';
 
 import { useState } from 'react';
 import { useInterval } from '../hooks/useInterval';
+
+const audioStart = new Audio(start);
+const audioStop = new Audio(stop);
 
 interface Props {
   defaultPomodoroTime: number;
@@ -31,6 +37,7 @@ export function PomodoroTimer({
   const handlePomodoroStart = () => {
     setIsTimeCounting(!isTimeCounting);
     setIsWorking(true);
+    audioStart.play();
   };
 
   return (
