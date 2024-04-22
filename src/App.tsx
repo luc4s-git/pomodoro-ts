@@ -1,8 +1,10 @@
+import { PomodoroTimer } from './components/pomodoro-timer';
+
 function App(): JSX.Element {
   return (
-    <>
-      <h1>Hello world!</h1>
-    </>
+    <div className="center-content">
+      <PomodoroTimer defaultPomodoroTime={1500} />
+    </div>
   );
 }
 
