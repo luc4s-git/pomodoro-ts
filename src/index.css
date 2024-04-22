@@ -169,19 +169,41 @@ ul {
   transition: var(--transition);
 }
 
-.pomodoro h2 {
+.pomodoro .btn-ghost {
   color: var(--grey-200);
   margin-bottom: 1.5rem;
-  text-transform: none;
 }
 
-.pomodoro div {
+.pomodoro .timer {
   color: var(--grey-200);
   margin-bottom: 2rem;
 }
 
 .timer {
   font-size: 7.5rem;
+}
+
+.btn-ghost {
+  text-transform: capitalize;
+  border: none;
+  margin: 0;
+  border-radius: var(--borderRadius);
+  padding: 2px 12px;
+  height: 28px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  color: var(--grey-100);
+}
+
+.focus {
+  transition: var(--transition);
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn-menu {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .btn {

@@ -11,10 +11,15 @@ interface Props {
   cycles: number;
 }
 
-export function PomodoroTimer({ defaultPomodoroTime }: Props): JSX.Element {
+export function PomodoroTimer({
+  defaultPomodoroTime,
+  shortRestTime,
+  longRestTime,
+}: Props): JSX.Element {
   const [isTimeCounting, setIsTimeCounting] = useState(false);
   const [mainTime, setMainTime] = useState(defaultPomodoroTime);
   const [isWorking, setIsWorking] = useState(false);
+  const [focusAt, setFocusAt] = useState(0);
 
   useInterval(
     () => {
@@ -30,13 +35,43 @@ export function PomodoroTimer({ defaultPomodoroTime }: Props): JSX.Element {
 
   return (
     <div className={`pomodoro ${isWorking ? 'working' : 'resting'}`}>
-      <h2>{isWorking ? 'Time to focus!' : 'Pomodoro'}</h2>
+      <div className="pomodoro-mode">
+        <Button
+          text="pomodoro"
+          className={`btn-ghost ${focusAt === 0 && 'focus'}`}
+          onClick={() => {
+            setMainTime(defaultPomodoroTime);
+            setIsTimeCounting(false);
+            setFocusAt(0);
+          }}
+        ></Button>
+        <Button
+          text="short break"
+          className={`btn-ghost ${focusAt === 1 && 'focus'}`}
+          onClick={() => {
+            setMainTime(shortRestTime);
+            setIsTimeCounting(false);
+            setFocusAt(1);
+          }}
+        ></Button>
+        <Button
+          text="long break"
+          className={`btn-ghost ${focusAt === 2 && 'focus'}`}
+          onClick={() => {
+            setMainTime(longRestTime);
+            setIsTimeCounting(false);
+            setFocusAt(2);
+          }}
+        ></Button>
+      </div>
       <Timer time={mainTime}></Timer>
-      <Button
-        text={isTimeCounting ? 'pause' : 'start'}
-        className="btn"
-        onClick={() => handlePomodoroStart()}
-      ></Button>
+      <div className="btn-menu">
+        <Button
+          text={isTimeCounting ? 'pause' : 'start'}
+          className="btn"
+          onClick={() => handlePomodoroStart()}
+        ></Button>
+      </div>
     </div>
   );
 }
