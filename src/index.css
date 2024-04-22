@@ -138,22 +138,6 @@ ul {
   margin: 5rem auto;
 }
 
-.working {
-  background-color: var(--primary-300);
-}
-
-.resting {
-  background-color: var(--light-blue);
-}
-
-.working .btn {
-  color: var(--primary-500);
-}
-
-.resting .btn {
-  color: var(--light-blue);
-}
-
 .hidden {
   display: none;
 }
@@ -167,6 +151,15 @@ ul {
   min-width: 90%;
   border-radius: var(--borderRadius);
   transition: var(--transition);
+  background-color: var(--light-blue);
+}
+
+.working {
+  background-color: var(--primary-300);
+}
+
+.working .btn {
+  color: var(--primary-500);
 }
 
 .pomodoro .btn-ghost {
@@ -204,6 +197,7 @@ ul {
 .btn-menu {
   display: flex;
   justify-content: space-evenly;
+  gap: 10px;
 }
 
 .btn {
@@ -211,13 +205,13 @@ ul {
   background-color: var(--grey-200);
   padding: 0px 12px;
   height: 55px;
-  width: 200px;
+  width: 120px;
   text-transform: uppercase;
   border-radius: var(--borderRadius);
   font-weight: bold;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: var(--transition);
+  color: var(--light-blue);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 

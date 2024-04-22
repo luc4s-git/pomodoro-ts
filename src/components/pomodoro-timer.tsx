@@ -4,7 +4,7 @@ import stop from '../assets/sounds/weeb-finish.mp3';
 import Button from './button';
 import Timer from './timer';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInterval } from '../hooks/useInterval';
 
 const audioStart = new Audio(start);
@@ -22,10 +22,19 @@ export function PomodoroTimer({
   shortRestTime,
   longRestTime,
 }: Props): JSX.Element {
-  const [isTimeCounting, setIsTimeCounting] = useState(false);
   const [mainTime, setMainTime] = useState(defaultPomodoroTime);
-  const [isWorking, setIsWorking] = useState(false);
-  const [focusAt, setFocusAt] = useState(0);
+  const [isTimeCounting, setIsTimeCounting] = useState(false);
+  const [working, setWorking] = useState(false);
+  const [resting, setResting] = useState(false);
+
+  useEffect(() => {
+    if (working) {
+      document.querySelector('.pomodoro')?.classList.add('working');
+    }
+    if (resting) {
+      document.querySelector('.pomodoro')?.classList.remove('working');
+    }
+  }, [working, resting]);
 
   useInterval(
     () => {
@@ -34,49 +43,44 @@ export function PomodoroTimer({
     isTimeCounting ? 1000 : null
   );
 
-  const handlePomodoroStart = () => {
-    setIsTimeCounting(!isTimeCounting);
-    setIsWorking(true);
+  const handleStartPomodoro = () => {
+    setIsTimeCounting(true);
+    setWorking(true);
+    setResting(false);
+    setMainTime(defaultPomodoroTime);
     audioStart.play();
   };
 
+  const handleRest = (long: boolean) => {
+    setIsTimeCounting(true);
+    setWorking(false);
+    setResting(true);
+
+    if (long) {
+      setMainTime(longRestTime);
+    } else {
+      setMainTime(shortRestTime);
+    }
+  };
+
   return (
-    <div className={`pomodoro ${isWorking ? 'working' : 'resting'}`}>
-      <div className="pomodoro-mode">
-        <Button
-          text="pomodoro"
-          className={`btn-ghost ${focusAt === 0 && 'focus'}`}
-          onClick={() => {
-            setMainTime(defaultPomodoroTime);
-            setIsTimeCounting(false);
-            setFocusAt(0);
-          }}
-        ></Button>
-        <Button
-          text="short break"
-          className={`btn-ghost ${focusAt === 1 && 'focus'}`}
-          onClick={() => {
-            setMainTime(shortRestTime);
-            setIsTimeCounting(false);
-            setFocusAt(1);
-          }}
-        ></Button>
-        <Button
-          text="long break"
-          className={`btn-ghost ${focusAt === 2 && 'focus'}`}
-          onClick={() => {
-            setMainTime(longRestTime);
-            setIsTimeCounting(false);
-            setFocusAt(2);
-          }}
-        ></Button>
-      </div>
+    <div className="pomodoro">
       <Timer time={mainTime}></Timer>
       <div className="btn-menu">
         <Button
-          text={isTimeCounting ? 'pause' : 'start'}
+          text="work"
           className="btn"
-          onClick={() => handlePomodoroStart()}
+          onClick={handleStartPomodoro}
+        ></Button>
+        <Button
+          text="rest"
+          className="btn"
+          onClick={() => handleRest(false)}
+        ></Button>
+        <Button
+          text={isTimeCounting ? 'pause' : 'play'}
+          className={!working && !resting ? 'hidden' : 'btn'}
+          onClick={() => setIsTimeCounting(!isTimeCounting)}
         ></Button>
       </div>
     </div>
