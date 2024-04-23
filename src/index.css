@@ -153,6 +153,9 @@ ul {
   transition: var(--transition);
   background-color: var(--light-blue);
 }
+.pomodoro h2 {
+  color: var(--grey-100);
+}
 
 .working {
   background-color: var(--primary-300);
@@ -176,19 +179,6 @@ ul {
   font-size: 7.5rem;
 }
 
-.btn-ghost {
-  text-transform: capitalize;
-  border: none;
-  margin: 0;
-  border-radius: var(--borderRadius);
-  padding: 2px 12px;
-  height: 28px;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0);
-  opacity: 1;
-  color: var(--grey-100);
-}
-
 .focus {
   transition: var(--transition);
   background-color: rgba(0, 0, 0, 0.15);
@@ -198,6 +188,7 @@ ul {
   display: flex;
   justify-content: space-evenly;
   gap: 10px;
+  margin-bottom: 2rem;
 }
 
 .btn {
@@ -217,4 +208,35 @@ ul {
 
 .btn:active {
   box-shadow: none;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  gap: 1rem;
+  color: var(--grey-100);
+  width: 100%;
+  font-size: 1.15rem;
+  text-transform: capitalize;
+}
+.details p {
+  word-break: break-all;
+  display: flex;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+.display-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  min-width: 25px;
+  border-radius: var(--borderRadius);
+  color: var(--light-blue);
+  background-color: var(--grey-200);
+}
+
+.working .display-number {
+  color: var(--primary-500);
 }
