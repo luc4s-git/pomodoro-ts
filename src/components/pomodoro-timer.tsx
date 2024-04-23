@@ -6,7 +6,7 @@ import Timer from './timer';
 
 import { useEffect, useState, useCallback } from 'react';
 import { useInterval } from '../hooks/useInterval';
-import { formatTime } from '../utils';
+import { secondsToTime } from '../utils';
 
 const audioStart = new Audio(start);
 const audioStop = new Audio(stop);
@@ -127,7 +127,9 @@ export function PomodoroTimer({
         </p>
         <p>
           Worked:
-          <span className="display-number">{formatTime(fullWorkingTime)}</span>
+          <span className="display-number">
+            {secondsToTime(fullWorkingTime)}
+          </span>
         </p>
         <p>
           Completed Pomodoros:
